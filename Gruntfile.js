@@ -104,6 +104,13 @@ module.exports = function(grunt) {
         options: {
           interrupt: true
         }
+      },
+      htmljs: {
+          files: ['*.html', '*.js'],
+          options: {
+              interrupt: true,
+              livereload: true
+          }
       }
     },
 
@@ -148,12 +155,22 @@ module.exports = function(grunt) {
     'autoprefixer'
   ]);
 
+  grunt.registerTask('devmode', 'Development Mode', [
+        'concurrent:devmode'
+    ]);
+
+  grunt.registerTask('test', 'Test', [
+      'jshint',
+      'webdriver'
+  ]);
+
   // First run task.
   grunt.registerTask('firstrun', 'Basic first run', function() {
     grunt.config.set('depserveOpenUrl', '/index.html');
     grunt.task.run('default');
     grunt.task.run('depserve');
   });
+
 
   grunt.registerTask('release', 'Release', [
     'clean',
