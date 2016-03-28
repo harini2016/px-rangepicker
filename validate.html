@@ -60,11 +60,11 @@ validate = {
     if(this.fromWorkingCopy.isBefore(this.toWorkingCopy)) {
       this._toggleErrorClasses(false);
 
-      if(!this.fromWorkingCopy.isSame(this.from, 'second')) {
-        this.set('from', this.fromWorkingCopy);
+      if(!this.fromWorkingCopy.isSame(this.fromMoment, 'second')) {
+        this.set('fromMoment', this.fromWorkingCopy);
       }
-      if(!this.toWorkingCopy.isSame(this.to, 'second')) {
-        this.set('to', this.toWorkingCopy);
+      if(!this.toWorkingCopy.isSame(this.toMoment, 'second')) {
+        this.set('toMoment', this.toWorkingCopy);
       }
 
       this.set('isSubmitButtonValid', this.allFieldsValid);

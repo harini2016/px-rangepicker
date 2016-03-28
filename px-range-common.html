@@ -73,7 +73,7 @@ var pxRangeCommon = {
      */
     fromMoment: {
       type: Object,
-      notify: true,
+      notify: true
     },
 
     /**
@@ -81,7 +81,7 @@ var pxRangeCommon = {
      */
     toMoment: {
       type: Object,
-      notify: true,
+      notify: true
     },
 
     firstRangeDate: {
@@ -98,7 +98,11 @@ var pxRangeCommon = {
 
   }, //properties close bracket
 
-
+  _setRange: function() {
+    // set to and from based on inputed range
+    this.set('fromMoment', this._convertISOtoMoment(this.range.from));
+    this.set('toMoment', this._convertISOtoMoment(this.range.to));
+  }
 }; //pxRangeCommon close bracket
 
 

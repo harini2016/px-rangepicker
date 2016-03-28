@@ -35,8 +35,8 @@ Rangepicker with time element.
     </px-rangepicker-modal>
     <px-range-fields
       id="rangeFields"
-      fromMoment="{{fromMoment}}"
-      toMoment="{{toMoment}}"
+      from-moment="{{fromMoment}}"
+      to-moment="{{toMoment}}"
       is-submit-button-valid = "{{isSubmitButtonValid}}"
       display-options="{{displayOptions}}">
     </px-range-fields>
@@ -52,7 +52,11 @@ Rangepicker with time element.
 
     },
 
-    behaviors: [pxDateTimeCommon,pxRangeCommon,validate],
+    behaviors: [
+      pxDateTimeCommon,
+      pxRangeCommon,
+      validate
+    ],
 
     observers: [
       // '_updateWorkingCopies(fromMoment, toMoment)',
@@ -64,12 +68,6 @@ Rangepicker with time element.
     _isSubmitButtonValid: function(isSubmitButtonValid) {
       this.set('isSubmitButtonValid', isSubmitButtonValid);
     },
-    _setRange: function() {
-      // set to and from based on inputed range
-      this.set('fromMoment', this._convertISOtoMoment(this.range.from));
-      this.set('toMoment', this._convertISOtoMoment(this.range.to));
-    },
-
 
     // _updateWorkingCopies: function() {
     //   this.set('fromWorkingCopy', this.fromMoment.toISOString());

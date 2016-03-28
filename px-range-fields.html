@@ -17,12 +17,12 @@ Component with all the date/time range fields which are displayed in the range p
   <template>
     <div class="form flex flex--middle flex--wrap">
       <div id="fromFields" class="flex flex--middle text-input u-mb-">
-        <span class=a11y>From</span>
+        <span class=a11y>from</span>
         <px-date-time-input
           id="fromDate"
           is-valid="{{validStartDate}}"
           is-submit-button-valid="{{isSubmitButtonValid}}"
-          moment="{{fromWorkingCopy}}"
+          moment="{{fromMoment}}"
           date-or-time="Date"
           class="flex u-mr-"
           is-submit-button-valid="{{isSubmitButtonValid}}">
@@ -31,7 +31,7 @@ Component with all the date/time range fields which are displayed in the range p
           id="fromTime"
           is-valid="{{validStartTime}}"
           is-submit-button-valid="{{isSubmitButtonValid}}"
-          moment="{{fromWorkingCopy}}"
+          moment="{{fromMoment}}"
           date-or-time="Time"
           class="flex"
           is-submit-button-valid="{{isSubmitButtonValid}}">
@@ -43,7 +43,7 @@ Component with all the date/time range fields which are displayed in the range p
           id="toDate"
           is-valid="{{validEndDate}}"
           is-submit-button-valid="{{isSubmitButtonValid}}"
-          moment="{{toWorkingCopy}}"
+          moment="{{toMoment}}"
           date-or-time="Date"
           class="flex u-mr-"
           is-submit-button-valid="{{isSubmitButtonValid}}">
@@ -52,7 +52,7 @@ Component with all the date/time range fields which are displayed in the range p
           id="toTime"
           is-valid="{{validEndTime}}"
           is-submit-button-valid="{{isSubmitButtonValid}}"
-          moment="{{toWorkingCopy}}"
+          moment="{{toMoment}}"
           date-or-time="Time"
           class="flex"
           is-submit-button-valid="{{isSubmitButtonValid}}">
@@ -69,7 +69,6 @@ Component with all the date/time range fields which are displayed in the range p
     is: 'px-range-fields',
 
     properties: {
-
       allFieldsValid: {
         type: Boolean,
         value: true
@@ -87,9 +86,14 @@ Component with all the date/time range fields which are displayed in the range p
       clearInvaild:{
         type:String,
         value:'no'
-      }
-
+      },
     },
+
+    behaviors: [
+      pxDateTimeCommon,
+      pxRangeCommon,
+      validate
+    ],
 
     observers: [
       '_validateRangeAndBroadcastChanges(fromWorkingCopy, toWorkingCopy, allFieldsValid)',
@@ -97,20 +101,13 @@ Component with all the date/time range fields which are displayed in the range p
       '_setRange(range)'
     ],
 
-    behaviors: [pxDateTimeCommon,pxRangeCommon,validate],
+    _testObs:function(){
+      console.log("obs")
+    },
 
     _allFieldsValid: function (vsd, vst, ved, vet) {
       //this checks that all fields are valid
       this.set('allFieldsValid', (vsd && vst && ved && vet) );
-    },
-
-    _updateFromWorkingCopy: function() {
-      // console.log(this.from);
-      this.set('fromWorkingCopy', moment(this.from));
-    },
-
-    _updateToWorkingCopy: function() {
-      this.set('toWorkingCopy', moment(this.to));
     },
 
     _toggleErrorClasses: function(isError) {
@@ -157,6 +154,10 @@ Component with all the date/time range fields which are displayed in the range p
     _dateTimeButtons:function(e){
       var normalizedEvent = Polymer.dom(e);
       console.log(normalizedEvent);
+      // this.set('range', {
+      //   from: this.fromMoment.toISOString(),
+      //   to: this.toMoment.toISOString()
+      // });
       // if(normalizedEvent.event.detail.action){
       //   this._submit();
       // } else {
