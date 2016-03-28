@@ -43,7 +43,7 @@ validate = {
       if (this.momentFormat === "MM/DD/YYYY") {
         this.$$('input').placeholder = this.momentFormat;
       } else {
-        this.$$('input').placeholder = "HH:MM:SS ?M";
+        // this.$$('input').placeholder = "HH:MM:SS ?M";
       }
 
       this.toggleClass('validation-error', true, this.$$('input'));

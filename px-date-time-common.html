@@ -34,56 +34,71 @@ var pxDateTimeCommon = {
     /**
      * (optional)
      *
-     * The preset date/time ranges to be displayed.  Defaults to: Last Day, Last Week, Last Year
+     * Display configuration that allows optional display patterns
+     *
+     *```
+     * ```
+     *
+     * @default no presets
+     */
+    displayOptions: {
+      type: Object,
+      value: {
+        displayType: 'normal',
+        submitButtonText: 'Apply',
+        submitButtonIcon: ''
+      }
+    },
+
+    /**
+     * (optional)
+     *
+     * The preset date/times to be displayed.  Defaults to: Today, 7 days Ago, 1 Year Ago
      *
      *```
      *   [
      *    {
-     *      "displayText": "Last 5 Minutes",
-     *      "startDateTime": "2013-02-04T22:44:30.652Z",
-     *      "endDateTime": "2013-02-04T22:49:30.652Z"
+     *      "displayText": "5 Minutes Ago",
+     *      "dateTime": "2013-02-04T22:44:30.652Z",
      *    },
      *    {
-     *      "displayText": "Last 12 Hours",
-     *      "startDateTime": "2013-02-04T10:44:30.652Z",
-     *      "endDateTime": "2013-02-04T22:49:30.652Z"
+     *      "displayText": "12 Hours Ago",
+     *      "dateTime": "2013-02-04T10:44:30.652Z",
      *    }
      *   ]
      * ```
      *
      * @default no presets
      */
-    presetRanges: Object,
+    presets: Object,
 
     /**
-     * Moment object start date & time
+     * TODO: Rename datetime or somethign like that
+     Range selected in the time picker - as ISO8601 strings
+     *
+     * Format
+     * ```
+     * {
+     *    "from": "2013-01-07T22:44:30.652Z",
+     *    "to" : "2013-02-04T22:44:30.652Z"
+     * }
+     * ```
+     *
+     * This is a 2-way data-bindable object which will be changed when the user Submits their new selected range.
+     *
+     * @default the last week
      */
-    from: {
-      type: Object,
-      notify: true,
-      observer: '_updateFromWorkingCopy'
-    },
-
-    /**
-     * Moment object end date & time
-     */
-    to: {
-      type: Object,
-      notify: true,
-      observer: '_updateToWorkingCopy'
-    },
-
-    firstRangeDate: {
-      type: Object,
-      notify: true
-    },
-    /**
-     * Moment object end date & time
-     */
-    secondRangeDate: {
-      type: Object,
-      notify: true
-    },
+    // range: {
+    //   type: Object,
+    //   notify: true,
+    //   reflectToAttribute: true, // need both notify & reflectToAttribute for bind-polymer to work
+    //   value: function() {
+    //     return {
+    //       from: moment().subtract(7, 'day').toISOString(),
+    //       to: moment().toISOString()
+    //     };
+    //   }
+    // },
 
     /**
      * A flag that tells us whether the Submit/Apply button is valid, and should be active.
@@ -93,9 +108,41 @@ var pxDateTimeCommon = {
       type: Boolean,
       value: true,
       notify: true
+    },
+
+    /**
+     * (optional)
+     *
+     * By default, the rangepicker will display the time in your browser's timezone.  If you add
+     * the is-utc attribute on px-rangepicker, it will display the time as a UTC (GMT timezone) time.
+     *
+     * @default false
+     */
+    isUtc: {
+      type: Boolean,
+      value: false
     }
-  }
-};
+
+  }, //properties close bracket
+
+  /**
+   * _convertISOtoMoment
+   *
+   * Takes an ISO 8601 String and return a moment object
+   *
+   *
+   * @private
+   */
+  _convertISOtoMoment: function(timeString) {
+    if(this.isUtc) {
+      return moment.utc(timeString, moment.ISO_8601);
+    }
+    else {
+      return moment(timeString, moment.ISO_8601);
+    }
+  },
+
+}; //pxDateTimeCommon close bracket
 
 
 

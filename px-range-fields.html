@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html"/>
 <link rel="import" href="px-date-time-input.html"/>
 <link rel="import" href="px-date-time-common.html"/>
+<link rel="import" href="px-range-common.html"/>
 <script src="../moment/moment.js"></script>
 
 <!--
@@ -92,10 +93,11 @@ Component with all the date/time range fields which are displayed in the range p
 
     observers: [
       '_validateRangeAndBroadcastChanges(fromWorkingCopy, toWorkingCopy, allFieldsValid)',
-      '_allFieldsValid( validStartDate, validStartTime, validEndDate, validEndTime )'
+      '_allFieldsValid( validStartDate, validStartTime, validEndDate, validEndTime )',
+      '_setRange(range)'
     ],
 
-    behaviors: [pxDateTimeCommon,validate],
+    behaviors: [pxDateTimeCommon,pxRangeCommon,validate],
 
     _allFieldsValid: function (vsd, vst, ved, vet) {
       //this checks that all fields are valid
@@ -103,11 +105,12 @@ Component with all the date/time range fields which are displayed in the range p
     },
 
     _updateFromWorkingCopy: function() {
-      this.set('fromWorkingCopy', this.from.clone());
+      // console.log(this.from);
+      this.set('fromWorkingCopy', moment(this.from));
     },
 
     _updateToWorkingCopy: function() {
-      this.set('toWorkingCopy', this.to.clone());
+      this.set('toWorkingCopy', moment(this.to));
     },
 
     _toggleErrorClasses: function(isError) {
