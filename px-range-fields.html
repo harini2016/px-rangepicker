@@ -16,7 +16,7 @@ Component with all the date/time range fields which are displayed in the range p
   <link rel="import" type="css" href="css/px-range-fields.css"/>
   <template>
     <div class="form flex flex--middle flex--wrap">
-      <div id="fromFields" class="flex flex--middle text-input u-mb-">
+      <div id="fromFields" class="flex flex--middle text-input ">
         <span class=a11y>from</span>
         <px-date-time-input
           id="fromDate"
@@ -37,8 +37,8 @@ Component with all the date/time range fields which are displayed in the range p
           is-submit-button-valid="{{isSubmitButtonValid}}">
         </px-date-time-input>
       </div>
-      <span class="caps u-mh- u-mb-">to</span>
-      <div id="toFields" class="flex flex--middle text-input u-mr+ u-mb-">
+      <span class="caps u-mh-">to</span>
+      <div id="toFields" class="flex flex--middle text-input u-mr+ ">
         <px-date-time-input
           id="toDate"
           is-valid="{{validEndDate}}"
@@ -154,15 +154,16 @@ Component with all the date/time range fields which are displayed in the range p
     _dateTimeButtons:function(e){
       var normalizedEvent = Polymer.dom(e);
       console.log(normalizedEvent);
-      // this.set('range', {
-      //   from: this.fromMoment.toISOString(),
-      //   to: this.toMoment.toISOString()
-      // });
-      // if(normalizedEvent.event.detail.action){
-      //   this._submit();
-      // } else {
-      //   this._closeAndReturnFocus();
-      // }
+
+      if(normalizedEvent.event.detail.action){
+        this.set('range', {
+          from: this.fromMoment.toISOString(),
+          to: this.toMoment.toISOString()
+        });
+      } else {
+        // this.returnLastFocus();//not convinced we need
+        this._setRange();
+      }
       e.stopPropagation();
     }
 
