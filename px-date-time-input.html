@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="validate.html" />
 <!--
 Range field component which displays a time or date and font awesome icon.
@@ -13,16 +14,19 @@ Range field component which displays a time or date and font awesome icon.
   <link rel="import" type="css" href="css/px-range-fields.css"/>
   <template>
     <div class="range-field__field flex flex--middle">
-      <label class=label--inline>
-        <span class=a11y>{{dateOrTime}}</span>
-        <i id=icon class="fa fa-fw"></i>
-        <input 
-          type=text
-          class=text-input--bare
+      <label class="label--inline">
+        <span class="a11y">{{dateOrTime}}</span>
+        <i id="icon" class="fa fa-fw dtIcon"></i>
+        <input
+          id="dtImport"
+          type="text"
+          class="text-input--bare"
           value="{{dateTimeWorkingCopy::input}}"
           on-focus="_handleFocus"
           on-click="_handleClick"
-          on-blur="_validateInput">
+          on-blur="_validateInput"
+          on-input="_inputValueChanged"
+          />
       </label>
     </div>
   </template>
@@ -32,6 +36,11 @@ Range field component which displays a time or date and font awesome icon.
   Polymer({
 
     is: 'px-date-time-input',
+
+    behaviors: [
+      validate,
+      Polymer.IronA11yKeysBehavior
+    ],
 
     properties: {
 
@@ -50,6 +59,10 @@ Range field component which displays a time or date and font awesome icon.
        * Format is 'Date' or 'Time'
        *
        * Can only be configured statically; not data-bindable
+       *
+       * @property dateOrTime
+       * @type string
+       * @default none
        */
       dateOrTime: {
         type: String
@@ -75,12 +88,31 @@ Range field component which displays a time or date and font awesome icon.
         type: Boolean,
         value: true,
         notify: true
-      }
+      },
+      _editTimeout:{
+        type:Object,
+        value: function(){ return {} }
+      },
+      keyEventTarget: {
+        type: Object,
+        value: function() {
+          return this.$.dtImport;
+        }
+      },
     },
-    behaviors: [validate],
+
+    /**
+     * Key bindings for iron-a11y-keys-behavior
+     * @private
+     */
+    keyBindings: {
+      'enter' : '_onEnter',
+      'esc' : '_onEsc'
+    },
+
     _updateAndValidateWorkingCopy: function() {
       this.set('dateTimeWorkingCopy', this.moment.format(this.momentFormat));
-      this._validateInput();
+      this.toggleClass('validation-error', false, this.$$('input'));
     },
 
     ready: function() {
@@ -110,7 +142,38 @@ Range field component which displays a time or date and font awesome icon.
      */
     focus: function() {
       this.querySelector('input').focus();
+    },
+    /**
+     * Listner attached to the input and sets up a timeout to trigger validation.
+     *
+     * @method _inputValueChanged
+     */
+    _inputValueChanged: function(evt){
+      clearTimeout(this._editTimeout);
+      this._editTimeout = setTimeout(function(){
+        this._validateInput();
+      }.bind(this), 300);
+    },
+    /**
+     * When ENTER is clicked
+     *
+     * @method _onEnter
+     */
+    _onEnter:function(){
+      this._validateInput();
+      setTimeout(function(){
+        if(this.isSubmitButtonValid){
+          this.fire('date-time-button',{ action:true });
+        }
+      }.bind(this),10);
+    },
+    /**
+     * When ESC is clicked
+     *
+     * @method _onEnter
+     */
+    _onEsc:function(){
+      this.fire('date-time-button',{ action:false });
     }
-
   });
 </script>

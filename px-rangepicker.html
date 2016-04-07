@@ -19,6 +19,14 @@ Rangepicker with time element.
 <dom-module id="px-rangepicker">
   <link rel="import" type="css" href="css/px-rangepicker.css"/>
   <template>
+    <px-range-fields
+      id="rangeFields"
+      from-moment="{{fromMoment}}"
+      to-moment="{{toMoment}}"
+      is-submit-button-valid = "{{isSubmitButtonValid}}"
+      display-options="{{displayOptions}}"
+      hide-range-field-buttons="true">
+    </px-range-fields>
     <px-rangepicker-modal
       id=rangePickerModal
       from="{{fromMoment}}"
@@ -33,13 +41,6 @@ Rangepicker with time element.
       is-submit-button-valid = "{{isSubmitButtonValid}}"
       is-utc="{{isUtc}}">
     </px-rangepicker-modal>
-    <px-range-fields
-      id="rangeFields"
-      from-moment="{{fromMoment}}"
-      to-moment="{{toMoment}}"
-      is-submit-button-valid = "{{isSubmitButtonValid}}"
-      display-options="{{displayOptions}}">
-    </px-range-fields>
   </template>
 </dom-module>
 

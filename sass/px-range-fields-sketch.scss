@@ -70,6 +70,14 @@ $inuit-enable-btn--tertiary     : true;
   }
 }
 
+#fromFields,
+#toFields,
+.validation-error,
+.validation-warning,
+.validation-success{
+  transition: .2s;
+}
+
 // Trumps
 $inuit-enable-margins--tiny     : true;
 $inuit-enable-margins--small    : true;

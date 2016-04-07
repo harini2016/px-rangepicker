@@ -226,6 +226,9 @@ html {
  * Monochromatic (gray10 is darkest, gray1 is lightest)
  */
 /**
+ * Define grey = gray to avoid dev typos
+ */
+/**
  * Buttons
  */
 /**
@@ -871,6 +874,13 @@ button.btn {
 .range-field__field label {
   margin: 0; }
 
+#fromFields,
+#toFields,
+.validation-error,
+.validation-warning,
+.validation-success {
+  transition: .2s; }
+
 /**
  * Margin and padding helper classes. Use these to tweak layout on a micro
  * level.
@@ -988,7 +998,9 @@ span {
   border-color: #0a9ec1;
   box-shadow: inset 0 0 0 1px #d1d0d8; }
 
-.text-input, .text-input label {
+.text-input, .text-input label,
+.dtIcon,
+.dtIcon label {
   color: #7c7c84; }
 
 .text-input--bare {

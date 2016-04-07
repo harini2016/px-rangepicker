@@ -162,8 +162,9 @@
         keyCode: keyCode
       };
     };
-
+ß
     function changeTime(inputToChange) {
+      // FIXME Polymer.dom(elem.root).querySelector....
       inputToChange.querySelector('#timeInput').value = "12:57:39 PM";
       var ev = new Event("change");
       inputToChange.querySelector('#timeInput').dispatchEvent(ev);

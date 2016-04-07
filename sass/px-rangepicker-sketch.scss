@@ -59,11 +59,11 @@ $inuit-enable-btn--bare           : true;
   z-index: 1;
   border: 1px solid;
   border-radius: 3px;
+  // FIXME Do we need this media query? RP break early because of it. Need on when it is smaller
   @include media-query(lap-and-up) {
     position: absolute;
     top: calculateRem(40px);
     left: 0;
-    z-index: auto;
   }
 }
 

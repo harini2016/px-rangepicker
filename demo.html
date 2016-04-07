@@ -54,10 +54,8 @@
         <!-- <px-rangepicker is-utc range="{{sampleData.range}}"></px-rangepicker> -->
         <!-- <px-rangepicker range="{{sampleData.range}}"></px-rangepicker> -->
         <!-- TODO fix modal top padding -->
-        <px-range-fields
-          range="{{sampleData.range}}">
-          <px-date-time-buttons></px-date-time-buttons>
-        </px-range-fields>
+        <px-range-fields range="{{sampleData.range}}" hide-range-field-buttons></px-range-fields>
+
         <!-- <px-rangepicker range="{{sampleData.range}}">
         </px-rangepicker> -->
       </div>
@@ -69,7 +67,7 @@
 
   </template>
 
-  <!-- <script>
+  <script>
 
     window.addEventListener('WebComponentsReady', function() {
 
@@ -118,7 +116,7 @@
       };
     }
 
-  </script> -->
+  </script>
 
 </body>
 </html>

@@ -226,6 +226,9 @@ html {
  * Monochromatic (gray10 is darkest, gray1 is lightest)
  */
 /**
+ * Define grey = gray to avoid dev typos
+ */
+/**
  * Buttons
  */
 /**
@@ -708,8 +711,7 @@ button.btn {
     .rangepicker__box {
       position: absolute;
       top: 2.6666666667rem;
-      left: 0;
-      z-index: auto; } }
+      left: 0; } }
 
 .border--top {
   border-top: 1px solid; }

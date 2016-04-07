@@ -21,7 +21,7 @@ Component with all the date/time range fields which are displayed in the range p
         <px-date-time-input
           id="fromDate"
           is-valid="{{validStartDate}}"
-          is-submit-button-valid="{{isSubmitButtonValid}}"
+          neighbor-valid="[[validStartTime]]"
           moment="{{fromMoment}}"
           date-or-time="Date"
           class="flex u-mr-"
@@ -30,7 +30,7 @@ Component with all the date/time range fields which are displayed in the range p
         <px-date-time-input
           id="fromTime"
           is-valid="{{validStartTime}}"
-          is-submit-button-valid="{{isSubmitButtonValid}}"
+          neighbor-valid="[[validStartDate]]"
           moment="{{fromMoment}}"
           date-or-time="Time"
           class="flex"
@@ -42,7 +42,7 @@ Component with all the date/time range fields which are displayed in the range p
         <px-date-time-input
           id="toDate"
           is-valid="{{validEndDate}}"
-          is-submit-button-valid="{{isSubmitButtonValid}}"
+          neighbor-valid="[[validEndTime]]"
           moment="{{toMoment}}"
           date-or-time="Date"
           class="flex u-mr-"
@@ -51,14 +51,16 @@ Component with all the date/time range fields which are displayed in the range p
         <px-date-time-input
           id="toTime"
           is-valid="{{validEndTime}}"
-          is-submit-button-valid="{{isSubmitButtonValid}}"
+          neighbor-valid="[[validEndDate]]"
           moment="{{toMoment}}"
           date-or-time="Time"
           class="flex"
           is-submit-button-valid="{{isSubmitButtonValid}}">
         </px-date-time-input>
       </div>
-      <content></content>
+      <template is="dom-if" if="{{!hideRangeFieldButtons}}">
+        <px-date-time-buttons is-submit-button-valid="{{isSubmitButtonValid}}"></px-date-time-buttons>
+      </template>
     </div>
   </template>
 </dom-module>
@@ -69,13 +71,15 @@ Component with all the date/time range fields which are displayed in the range p
     is: 'px-range-fields',
 
     properties: {
+      /**
+       * Boolean set when all field pass validation
+       *
+       * @default true
+       */
       allFieldsValid: {
         type: Boolean,
-        value: true
-      },
-      buttonListener:{
-        type:String,
-        value: 'date-time-button'
+        value: true,
+        notify: true
       },
       // TODO Move to range-field
       /**
@@ -87,6 +91,15 @@ Component with all the date/time range fields which are displayed in the range p
         type:String,
         value:'no'
       },
+      /**
+       * Boolean to decide whether to show or hide apply and cancel buttons in the range fields
+       *
+       * @default false (IE buttons are shown)
+       */
+      hideRangeFieldButtons:{
+        type:Boolean,
+        value: false
+      }
     },
 
     behaviors: [
@@ -96,13 +109,14 @@ Component with all the date/time range fields which are displayed in the range p
     ],
 
     observers: [
-      '_validateRangeAndBroadcastChanges(fromWorkingCopy, toWorkingCopy, allFieldsValid)',
+      '_validateRangeAndBroadcastChanges(fromMoment, toMoment, allFieldsValid)',
       '_allFieldsValid( validStartDate, validStartTime, validEndDate, validEndTime )',
       '_setRange(range)'
     ],
 
-    _testObs:function(){
-      console.log("obs")
+    ready: function() {
+      this.listen(this, 'px-focused-range-field', '_focusedRange');
+      this.listen(this, 'date-time-button', '_dateTimeButtons');
     },
 
     _allFieldsValid: function (vsd, vst, ved, vet) {
@@ -115,9 +129,20 @@ Component with all the date/time range fields which are displayed in the range p
       this.toggleClass('validation-error', isError, this.$$('#toFields'));
     },
 
-    ready: function() {
-      this.listen(this, 'px-focused-range-field', '_focusedRange');
-      this.listen(this, this.buttonListener, '_dateTimeButtons');
+    // TODO: enable the moment change, but not applied
+    _toggleChangedClasses: function(isError) {
+      this.toggleClass('validation-warning', isError, this.$$('#fromFields'));
+      this.toggleClass('validation-warning', isError, this.$$('#toFields'));
+    },
+
+    _toggleSuccessClasses: function() {
+      this.toggleClass('validation-success', true, this.$$('#fromFields'));
+      this.toggleClass('validation-success', true, this.$$('#toFields'));
+
+      setTimeout(function(){
+        this.toggleClass('validation-success', false, this.$$('#fromFields'));
+        this.toggleClass('validation-success', false, this.$$('#toFields'));
+      }.bind(this),1000);
     },
 
     /**
@@ -153,13 +178,13 @@ Component with all the date/time range fields which are displayed in the range p
 
     _dateTimeButtons:function(e){
       var normalizedEvent = Polymer.dom(e);
-      console.log(normalizedEvent);
 
       if(normalizedEvent.event.detail.action){
         this.set('range', {
           from: this.fromMoment.toISOString(),
           to: this.toMoment.toISOString()
         });
+        this._toggleSuccessClasses();
       } else {
         // this.returnLastFocus();//not convinced we need
         this._setRange();
