@@ -213,9 +213,6 @@ html {
  * Monochromatic (gray10 is darkest, gray1 is lightest)
  */
 /**
- * Define grey = gray to avoid dev typos
- */
-/**
  * Buttons
  */
 /**
@@ -867,6 +864,9 @@ button.btn {
 .validation-warning,
 .validation-success {
   transition: .2s; }
+
+.validation-changed {
+  border-color: #e8a736; }
 
 /**
  * Margin and padding helper classes. Use these to tweak layout on a micro

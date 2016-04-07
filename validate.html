@@ -71,8 +71,9 @@ validate = {
 
       this.set('isValid', true);
       // if the neighbor is also valid, then we can set our moment object
-      if(this.neighborValid) {
+      if(this.neighborValid && !this.moment.isSame(newMoment,'second')) {
         this.set('moment', newMoment);
+        this.fire('moment-changed',{'moment':newMoment})
       }
       return true;
 
@@ -103,14 +104,6 @@ validate = {
     // if the from date is before the to date, everything is ok
     if(this.fromMoment.isBefore(this.toMoment)) {
       this._toggleErrorClasses(false);
-      //keeping for when we get to testing
-      // if(!this.fromWorkingCopy.isSame(this.fromMoment, 'second')) {
-      //   this.set('fromMoment', this.fromWorkingCopy);
-      // }
-      // if(!this.toWorkingCopy.isSame(this.toMoment, 'second')) {
-      //   this.set('toMoment', this.toWorkingCopy);
-      // }
-
       this._submitButtonState(this.allFieldsValid);
       return true;
 

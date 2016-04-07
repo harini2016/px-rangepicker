@@ -78,6 +78,10 @@ $inuit-enable-btn--tertiary     : true;
   transition: .2s;
 }
 
+.validation-changed{
+  border-color: $alert-yellow;
+}
+
 // Trumps
 $inuit-enable-margins--tiny     : true;
 $inuit-enable-margins--small    : true;
