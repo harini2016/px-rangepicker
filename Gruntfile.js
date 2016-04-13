@@ -109,7 +109,7 @@ module.exports = function(grunt) {
           files: ['*.html', '*.js'],
           options: {
               interrupt: true,
-              livereload: true
+              livereload: false
           }
       }
     },
