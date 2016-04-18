@@ -1,5 +1,5 @@
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="px-date-time-input.html"/>
+<link rel="import" href="px-datetime-entry.html"/>
 <link rel="import" href="px-date-time-common.html"/>
 <link rel="import" href="px-range-common.html"/>
 <script src="../moment/moment.js"></script>
@@ -18,7 +18,7 @@ Component with all the date/time range fields which are displayed in the range p
     <div class="form flex flex--middle flex--wrap">
       <div id="fromFields" class="flex flex--middle text-input ">
         <span class=a11y>from</span>
-        <px-date-time-input
+        <px-datetime-entry
           id="fromDate"
           is-valid="{{validStartDate}}"
           neighbor-valid="[[validStartTime]]"
@@ -26,8 +26,8 @@ Component with all the date/time range fields which are displayed in the range p
           date-or-time="Date"
           class="flex u-mr-"
           is-submit-button-valid="{{isSubmitButtonValid}}">
-        </px-date-time-input>
-        <px-date-time-input
+        </px-datetime-entry>
+        <px-datetime-entry
           id="fromTime"
           is-valid="{{validStartTime}}"
           neighbor-valid="[[validStartDate]]"
@@ -35,11 +35,11 @@ Component with all the date/time range fields which are displayed in the range p
           date-or-time="Time"
           class="flex"
           is-submit-button-valid="{{isSubmitButtonValid}}">
-        </px-date-time-input>
+        </px-datetime-entry>
       </div>
       <span class="caps u-mh-">to</span>
       <div id="toFields" class="flex flex--middle text-input u-mr+ ">
-        <px-date-time-input
+        <px-datetime-entry
           id="toDate"
           is-valid="{{validEndDate}}"
           neighbor-valid="[[validEndTime]]"
@@ -47,8 +47,8 @@ Component with all the date/time range fields which are displayed in the range p
           date-or-time="Date"
           class="flex u-mr-"
           is-submit-button-valid="{{isSubmitButtonValid}}">
-        </px-date-time-input>
-        <px-date-time-input
+        </px-datetime-entry>
+        <px-datetime-entry
           id="toTime"
           is-valid="{{validEndTime}}"
           neighbor-valid="[[validEndDate]]"
@@ -56,10 +56,10 @@ Component with all the date/time range fields which are displayed in the range p
           date-or-time="Time"
           class="flex"
           is-submit-button-valid="{{isSubmitButtonValid}}">
-        </px-date-time-input>
+        </px-datetime-entry>
       </div>
       <template is="dom-if" if="{{_showRangeFieldButtons(rangeFieldButtonsDisplay)}}">
-        <px-date-time-buttons 
+        <px-date-time-buttons
           id="dtBtns"
           class$="{{_addHiddenClass(rangeFieldButtonsDisplay)}}"
           is-submit-button-valid="{{isSubmitButtonValid}}"
@@ -204,7 +204,7 @@ Component with all the date/time range fields which are displayed in the range p
     // TODO: enable the moment change, but not applied
     _addChangedClasses: function(evt) {
       this.toggleClass('visuallyhidden', false, this.$$('#dtBtns'));
-      
+
       if(evt.detail.moment===this.toMoment){
         this.toggleClass('validation-changed', true, this.$$('#toFields'));
         this.toggleClass('is-focused', true, this.$$('#toFields'));
@@ -216,7 +216,7 @@ Component with all the date/time range fields which are displayed in the range p
       if(this.autoSubmit){
         setTimeout(function(){
           if(this.isSubmitButtonValid){
-            this.fire('date-time-button',{action : true}); 
+            this.fire('date-time-button',{action : true});
           }
         }.bind(this),10);
       }
@@ -258,7 +258,7 @@ Component with all the date/time range fields which are displayed in the range p
 
       // TODO Move to range-field
       if(this.clearInvaild === 'yes'){
-        var range = this.lastFocusedElement.getElementsByClassName("px-date-time-input validation-error");
+        var range = this.lastFocusedElement.getElementsByClassName("px-datetime-entry validation-error");
           if (range.length) {
             range[0].value = "";
         }
