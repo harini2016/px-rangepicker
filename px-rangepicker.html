@@ -1,8 +1,9 @@
 <link rel="import" href="../polymer/polymer.html"/>
-<link rel="import" href="px-date-time-common.html"/>
-<link rel="import" href="px-range-common.html"/>
-<link rel="import" href="px-range-fields.html"/>
-<link rel="import" href="px-rangepicker-modal.html"/>
+<link rel="import" href="../px-datetime-common/px-datetime-behavior.html"/>
+<link rel="import" href="../px-datetime-common/px-datetime-range-behavior.html"/>
+<link rel="import" href="../px-datetime-range-panel/px-datetime-range-panel.html"/>
+<link rel="import" href="../px-datetime-range-field/px-datetime-range-field.html"/>
+<link rel="import" href="../px-datetime-common/validate.html"/>
 
 <script src="../moment/moment.js"></script>
 
@@ -19,15 +20,15 @@ Rangepicker with time element.
 <dom-module id="px-rangepicker">
   <link rel="import" type="css" href="css/px-rangepicker.css"/>
   <template>
-    <px-range-fields
+    <px-datetime-range-field
       id="rangeFields"
       from-moment="{{fromMoment}}"
       to-moment="{{toMoment}}"
       is-submit-button-valid = "{{isSubmitButtonValid}}"
       display-options="{{displayOptions}}"
-      hide-range-field-buttons="true">
-    </px-range-fields>
-    <px-rangepicker-modal
+      range-field-buttons-display="hide">
+    </px-datetime-range-field>
+    <px-datetime-range-panel
       id=rangePickerModal
       from="{{fromMoment}}"
       to="{{toMoment}}"
@@ -40,7 +41,7 @@ Rangepicker with time element.
       hidden
       is-submit-button-valid = "{{isSubmitButtonValid}}"
       is-utc="{{isUtc}}">
-    </px-rangepicker-modal>
+    </px-datetime-range-panel>
   </template>
 </dom-module>
 
@@ -54,14 +55,12 @@ Rangepicker with time element.
     },
 
     behaviors: [
-      pxDateTimeCommon,
-      pxRangeCommon,
+      pxDatetimeBehavior,
+      pxDatetimeRangeBehavior,
       validate
     ],
 
     observers: [
-      // '_updateWorkingCopies(fromMoment, toMoment)',
-      // '_updateMoments(fromWorkingCopy, toWorkingCopy)',
       '_isSubmitButtonValid(isSubmitButtonValid)',
       '_setRange(range)'
     ],
@@ -69,31 +68,6 @@ Rangepicker with time element.
     _isSubmitButtonValid: function(isSubmitButtonValid) {
       this.set('isSubmitButtonValid', isSubmitButtonValid);
     },
-
-    // _updateWorkingCopies: function() {
-    //   this.set('fromWorkingCopy', this.fromMoment.toISOString());
-    //   this.set('toWorkingCopy', this.toMoment.toISOString());
-    // },
-
-    // _updateMoments: function() {
-    //   this._updateMomentIfDifferent(this.fromWorkingCopy, 'fromMoment');
-    //   this._updateMomentIfDifferent(this.toWorkingCopy, 'toMoment');
-    // },
-
-    // _updateMomentIfDifferent: function(newTimeString, currentMomentName) {
-    //   var newMoment;
-    //   if(this.isUtc) {
-    //     newMoment = moment.utc(newTimeString, moment.ISO_8601);
-    //   }
-    //   else {
-    //     newMoment = moment(newTimeString, moment.ISO_8601);
-    //   }
-    //   if (!this[currentMomentName] || !this[currentMomentName].isSame(newMoment, 'second')) { // break unnecessary looping
-    //     console.log("currentMomentName  " + currentMomentName);
-    //     console.log(newMoment);
-    //     this.set(currentMomentName, newMoment);
-    //   }
-    // },
 
     ready: function() {
 
@@ -117,18 +91,6 @@ Rangepicker with time element.
         // return focus to range fields when the close button is clicked (probably not with submit)
         self.$.rangeFields.returnLastFocus();
         self._setRange();
-        // self._updateMoments();
-        // if(this.isUtc){
-          // this.set('from', moment.utc(self.range.from));
-          // this.set('to', moment.utc(self.range.to));
-          // this.set("firstRangeDate", moment.utc(self.range.from));
-          // this.set("secondRangeDate", moment.utc(self.range.to));
-        // } else {
-          // this.set('from', moment(self.range.from));
-          // this.set('to', moment(self.range.to));
-          // this.set("firstRangeDate", moment(self.range.from));
-          // this.set("secondRangeDate", moment(self.range.to));
-        // }
       });
     }
 
