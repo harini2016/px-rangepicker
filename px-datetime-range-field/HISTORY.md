@@ -1,3 +1,7 @@
+v0.3.0
+==================
+& Added blockPastDates
+
 v0.2.0
 ==================
 * Upgrade to Polymer 1.5.0
