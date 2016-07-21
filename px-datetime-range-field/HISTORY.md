@@ -1,6 +1,30 @@
+v0.3.6
+==================
+* added footer to demo
+
+v0.3.5
+==================
+* updated range error message
+
+v0.3.4
+==================
+* added onerror to shield images.
+
+v0.3.3
+==================
+* updated mega demo configurations and properties margin
+
+v0.3.2
+==================
+* fixed merge conflicts
+
+v0.3.1
+==================
+* updated demo page
+
 v0.3.0
 ==================
-& Added blockPastDates
+* Added blockPastDates
 
 v0.2.0
 ==================

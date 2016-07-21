@@ -12,7 +12,7 @@
 <!--
 Px datetime component that displays and validates a date time range.
 
-##### Usage
+### Usage
 
     <px-datetime-range-field range="{{...}}">
     </px-datetime-range-field>
@@ -40,7 +40,7 @@ Px datetime component that displays and validates a date time range.
         </px-datetime-field>
       </div>
       <span class="caps u-mh-">to</span>
-      <div id="toFields" class="flex flex--middle u-mr+">
+      <div id="toFields" class="flex flex--middle">
         <px-datetime-field
           id="toDate"
           moment-obj="{{toMoment}}"
@@ -65,7 +65,7 @@ Px datetime component that displays and validates a date time range.
                 class="tooltip-font"
                 smart-orientation
                 orientation="top"
-                tooltip-message="Range is reversed">
+                tooltip-message="FROM date cannot be later than TO date">
               </px-tooltip>
             </template>
           </div>
@@ -75,7 +75,8 @@ Px datetime component that displays and validates a date time range.
       <template is="dom-if" if="{{showButtons}}">
         <px-datetime-buttons
           id="dtBtns"
-          is-submit-button-valid="[[isValid]]">
+          is-submit-button-valid="[[isValid]]"
+          class="u-ml">
         </px-datetime-buttons>
       </template>
     </div>
