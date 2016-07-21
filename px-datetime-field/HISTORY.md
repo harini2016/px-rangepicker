@@ -1,3 +1,11 @@
+v0.4.5
+==================
+* Updated component discription in demo 
+
+v0.4.4
+==================
+* Removed # in polymer dependencies
+
 v0.4.3
 ==================
 * Fixed footer

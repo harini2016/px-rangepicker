@@ -1,3 +1,11 @@
+v0.3.6
+==================
+* Updated component discription in demo
+
+v0.3.5
+==================
+* Fixed id in demo
+
 v0.3.4
 ==================
 * Fixed footer auto year
