@@ -161,7 +161,7 @@
           <li>
             <a href="mailto:info@predix.io" class="footer__list--lnk">Contact Us</a>
           </li>
-          <li>Copyright © 2016 General Electric Company. All rights reserved.</li>
+          <li>Copyright &copy; {{year}} General Electric Company. All rights reserved.</li>
         </ul>
       </div>
     </div>
@@ -174,6 +174,7 @@ window.addEventListener('WebComponentsReady', function() {
       dateFormat = ["YYYY/MM/DD","MM/DD/YY"],
       timeFormat = ["hh:mm:ss A","HH:mm:ss.SSS"],
       showTimeZone = ["text","dropdown"],
+      year = new Date(),
       timeZone =["UTC","America/Los_Angeles"];
 
   var optionsArray = [
@@ -213,9 +214,13 @@ window.addEventListener('WebComponentsReady', function() {
     var indexPlusOne = function(num) {
       return num + 1;
     };
+
+    year = year.getFullYear();
+
     template.selected = "0";
     template.optionsArray = optionsArray;
     template.indexPlusOne = indexPlusOne;
+    template.year = year;
 });
 </script>
 

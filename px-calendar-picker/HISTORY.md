@@ -1,3 +1,15 @@
+v0.3.3
+==================
+* Fixed footer
+
+v0.3.2
+==================
+* Added height:auto to .btn--bare
+
+v0.3.1
+==================
+* Updated to new demo
+
 v0.3.0
 ==================
 * Added BlockPastDates
