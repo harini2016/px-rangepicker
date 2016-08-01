@@ -1,3 +1,7 @@
+v1.1.6
+==================
+* Component screenshot, font reference and github links for demo update
+
 v1.1.5
 ==================
 * Added vulcanize
