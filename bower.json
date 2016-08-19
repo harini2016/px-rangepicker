@@ -43,8 +43,5 @@
     "px-code-design": "~0.2.11",
     "px-dropdown": "^0.10.2",
     "px-polymer-font-awesome": "^0.1.8"
-  },
-  "resolutions": {
-    "px-viewport-design": "~0.4.1"
   }
 }
