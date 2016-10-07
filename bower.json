@@ -38,19 +38,15 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#~1.2.3",
     "px-tabs": "~0.5.2",
     "px-api-viewer": "^0.1.0",
-    "px-demo-snippet": "^0.5.1",
+    "px-demo-snippet": "^0.6.4",
     "px-list-inline-design": "^0.2.11",
     "px-code-design": "~0.2.11",
     "px-dropdown": "^0.12.1",
     "px-polymer-font-awesome": "^0.1.9"
   },
   "resolutions": {
-    "px-datetime-common": "~0.6.3",
-    "px-theme": "^1.1.2",
-    "px-typography-design": "~1.1.1",
-    "px-tooltip": "~0.9.0",
-    "px-dropdown": "^0.12.1",
-    "iron-ajax": "^1.0.0",
-    "px-datetime-field": "~0.5.0"
+    "iron-ajax": "^1.4.3",
+    "px-typography-design": "^1.1.0",
+    "px-theme": "^1.1.2"
   }
 }
