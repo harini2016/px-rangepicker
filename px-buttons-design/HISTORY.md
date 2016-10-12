@@ -1,4 +1,16 @@
- v0.4.26
+v0.4.29
+==============================
+* updated demo
+
+v0.4.28
+==============================
+* fixed bower.json
+
+v0.4.27
+==============================
+* added new demo and auto-ghp
+
+v0.4.26
 ==============================
 * updated bare bones button styles
 
